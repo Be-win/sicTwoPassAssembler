@@ -1,0 +1,20 @@
+.button {
+    -fx-background-color: #007BFF;
+    -fx-text-fill: white;
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+}
+
+.button:hover {
+    -fx-background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+.text-field {
+    -fx-border-radius: 5;
+    -fx-background-color: #f8f8f8;
+    -fx-border-color: #c0c0c0;
+}
+
+.label {
+    -fx-text-fill: #333333; /* Dark text for labels */
+}

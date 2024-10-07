@@ -1,16 +1,14 @@
-import javax.swing.*;
-import java.io.IOException;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            TwoPassAssemblerGUI gui;
-            try {
-                gui = new TwoPassAssemblerGUI();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            gui.setVisible(true);
-        });
+        launch(args); // Launch the JavaFX application
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        TwoPassAssemblerGUI gui = new TwoPassAssemblerGUI();
+        gui.start(primaryStage); // Start the JavaFX GUI
     }
 }
