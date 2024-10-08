@@ -95,6 +95,7 @@ public class TwoPassAssemblerGUI extends Application {
         intermediateFileOutput.setFont(font2);
         intermediateFileOutput.setPromptText("Intermediate File Output");
         intermediateFileOutput.setStyle("-fx-background-color: #f0f0f0; -fx-border-color: #c0c0c0; -fx-border-radius: 5; -fx-border-width: 1;");
+        intermediateFileOutput.setEditable(false);
 
         Label intermediateFileLabel = new Label("Intermediate File Output");
         intermediateFileLabel.setFont(font);
@@ -111,6 +112,7 @@ public class TwoPassAssemblerGUI extends Application {
         symbolTableOutput.setFont(font2);
         symbolTableOutput.setPromptText("Symbol Table Output");
         symbolTableOutput.setStyle("-fx-background-color: #f0f0f0; -fx-border-color: #c0c0c0; -fx-border-radius: 5; -fx-border-width: 1;");
+        symbolTableOutput.setEditable(false);
 
         Label symbolTableLabel = new Label("Symbol Table Output");
         symbolTableLabel.setFont(font);
@@ -132,6 +134,7 @@ public class TwoPassAssemblerGUI extends Application {
         objectCodeOutput.setFont(font2);
         objectCodeOutput.setPromptText("Object Code Output");
         objectCodeOutput.setStyle("-fx-background-color: #f0f0f0; -fx-border-color: #c0c0c0; -fx-border-radius: 5; -fx-border-width: 1;");
+        objectCodeOutput.setEditable(false);
 
         Label objectCodeLabel = new Label("Object Code Output");
         objectCodeLabel.setFont(font);
