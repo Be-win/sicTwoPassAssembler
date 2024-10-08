@@ -28,12 +28,15 @@ First Line: START directive with program starting address (e.g., COPY START 1000
 Instruction Lines: Should contain labels (optional), operation codes, and operands.
 End Line: The final line should include the END directive (e.g., END FIRST).
 
-COPY&nbsp;&nbsp;&nbsp;&nbsp;START&nbsp;&nbsp;&nbsp;&nbsp;2000\
-FIRST&nbsp;&nbsp;&nbsp;&nbsp;LDA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIVE\
-\-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALPHA\
-\-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LDCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHARZ\
-\-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C1\
-\-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIRST
+
+<pre>
+COPY   START   2000
+FIRST   LDA FIVE
+-   STA ALPHA
+-   LDCH    CHARZ
+-   STCH   C1
+-   END FIRST
+</pre>
 
 
 ## Preloaded Optab
