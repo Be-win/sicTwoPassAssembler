@@ -238,7 +238,6 @@ public class TwoPassAssemblerGUI extends Application {
         if (cssResource != null) {
             // Add the stylesheet to the scene using URL
             scene.getStylesheets().add(cssResource.toExternalForm());
-            System.out.println("CSS loaded successfully: " + cssResource.toExternalForm());
         } else {
             // Handle the case where the resource is not found
             System.err.println("CSS file not found: " + cssPath);
