@@ -91,13 +91,14 @@ public class TwoPassAssembler {
 
         // Handle "START" directive
         if (startParts[1].equals("START")) {
-            objectCode.put(0, "H^ " + startParts[0] + "^ " + String.format("%06X", start) + "^ " + String.format("%06X", length));
+            objectCode.put(0, "H^" + startParts[0] + "^" + String.format("%06X", start) + "^" + String.format("%06X", length));
             //line = intermediate.get(start + 1);
         } else {
-            objectCode.put(0, "H^ " + " " + "^ 0000^ " + String.format("%06X", length));
+            objectCode.put(0, "H^" + " " + "^0000^" + String.format("%06X", length));
         }
 
-        StringBuilder textRecord = new StringBuilder();
+        StringBuilder textRecord1 = new StringBuilder();
+        StringBuilder textRecord2 = new StringBuilder();
         int textStartAddr = 0;
         int textLength = 0;
 
@@ -111,7 +112,7 @@ public class TwoPassAssembler {
 
             if (textLength == 0) {
                 textStartAddr = loc;
-                textRecord.append("T^ ").append(String.format("%06X", textStartAddr)).append("^ ");
+                textRecord1.append("T^").append(String.format("%06X", textStartAddr)).append("^");
             }
 
             // Generate object code for each line
@@ -119,40 +120,51 @@ public class TwoPassAssembler {
                 String machineCode = optab.get(parts[1]);
                 int address = symtab.getOrDefault(parts[2], 0);
                 String code = machineCode + String.format("%04X", address);
-                textRecord.append(code).append("^ ");
+                textRecord2.append(code).append("^");
                 textLength += code.length() / 2;
             } else if (parts[1].equals("WORD")) {
                 String wordCode = String.format("%06X", Integer.parseInt(parts[2]));
-                textRecord.append(wordCode).append("^ ");
+                textRecord2.append(wordCode).append("^");
                 textLength += wordCode.length() / 2;
             } else if (parts[1].equals("BYTE")) {
                 String byteCode = parts[2].substring(2, parts[2].length() - 1); // Extract value from BYTE literal
-                textRecord.append(byteCode).append("^ ");
+                // bytecode to Ascii
+                StringBuilder asciiString = new StringBuilder();
+                for (int i = 0; i < byteCode.length(); i++) {
+                    int asciiValue = byteCode.charAt(i); // Convert each character to ASCII
+                    asciiString.append(asciiValue); // Append the ASCII value
+                }
+                textRecord2.append(String.format("%02X", Integer.parseInt(asciiString.toString()))).append("^");
                 textLength += byteCode.length() / 2;
             } else if (parts[1].equals("RESW") || parts[1].equals("RESB")) {
                 // If we hit RESW/RESB, flush the current text record and start a new one after reserving memory
                 if (textLength > 0) {
-                    objectCode.put(textStartAddr, textRecord.toString());
-                    textRecord = new StringBuilder();
+                    textRecord1.append(String.format("%02X", textLength)).append("^").append(textRecord2);
+                    objectCode.put(textStartAddr, textRecord1.toString());
+                    textRecord1 = new StringBuilder();
+                    textRecord2 = new StringBuilder();
                     textLength = 0;
                 }
                 continue; // Do not generate object code for reserved space
             }
 
             if (textLength >= 30) { // Text records should not exceed 30 bytes (60 hex characters)
-                objectCode.put(textStartAddr, textRecord.toString());
-                textRecord = new StringBuilder();
+                textRecord1.append(String.format("%02X", textLength)).append("^").append(textRecord2);
+                objectCode.put(textStartAddr, textRecord1.toString());
+                textRecord1 = new StringBuilder();
+                textRecord2 = new StringBuilder();
                 textLength = 0;
             }
         }
 
         // Write remaining text record if not empty
         if (textLength > 0) {
-            objectCode.put(textStartAddr, textRecord.toString());
+            textRecord1.append(String.format("%02X", textLength)).append("^").append(textRecord2);
+            objectCode.put(textStartAddr, textRecord1.toString());
         }
 
         // Write End record
-        objectCode.put(locctr, "E^ " + String.format("%06X", start));
+        objectCode.put(locctr, "E^" + String.format("%06X", start));
     }
 
 

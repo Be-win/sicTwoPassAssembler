@@ -5,5 +5,4 @@ out/
 *.iml
 *.log
 *.class
-*.jar
 .DS_Store
