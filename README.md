@@ -82,6 +82,6 @@ The program will work for the following opcodes
 
 ![Alt text](screenshots/img-2.png)
 
-![Alt text](screenshots/img-3.png)
+![Alt text](screenshots/img3.png)
 
 
